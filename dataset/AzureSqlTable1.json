@@ -1,12 +1,12 @@
 {
-	"name": "RestResource_ds",
+	"name": "AzureSqlTable1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "RestService_ls",
+			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "RestResource",
+		"type": "AzureSqlTable",
 		"schema": []
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

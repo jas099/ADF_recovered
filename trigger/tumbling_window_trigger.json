@@ -3,6 +3,16 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "Incremental Loading_MrTalk_tech",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"startTime": "@trigger().outputs.windowStartTime",
+				"endTime": "@trigger().outputs.windowEndTime"
+			}
+		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Minute",

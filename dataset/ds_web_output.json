@@ -1,19 +1,19 @@
 {
-	"name": "Parquet1",
+	"name": "ds_web_output",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorage2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "Parquet",
+		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
-			},
-			"compressionCodec": "snappy"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "output"
+			}
 		},
-		"schema": []
+		"schema": {}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

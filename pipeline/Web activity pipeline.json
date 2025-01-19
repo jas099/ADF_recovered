@@ -1,0 +1,58 @@
+{
+	"name": "Web activity pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "GET data",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.10:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://jsonplaceholder.typicode.com/posts"
+				}
+			},
+			{
+				"name": "PUT data",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "GET data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "PUT",
+					"headers": {
+						"x-ms-blob-type": "BlockBlob"
+					},
+					"url": "https://demostoragewebactivity.blob.core.windows.net/input/webActivityOutput.json?sp=racw&st=2025-01-19T17:13:40Z&se=2025-01-22T01:13:40Z&spr=https&sv=2022-11-02&sr=c&sig=Ow6QJnPJ78suw8skxDO5rYkQtnocpMBl7HGjeFu%2F24k%3D",
+					"body": {
+						"value": "@activity('GET data').output",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-01-19T17:22:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
