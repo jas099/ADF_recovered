@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "POST web activity",
 	"properties": {
 		"activities": [
 			{
