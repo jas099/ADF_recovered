@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adflearningactivities"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://learningstorageaccount11.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://demostoragewebactivity.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "demo-laerning-server.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "demo-learning-db"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "jg"
+		},
+		"RestService_ls_properties_typeProperties_url": {
+			"value": "https://reqres.in/api/users"
+		},
+		"trigger_tumbling_properties_pipeline_parameters_startTime": {
+			"value": "@trigger().outputs.windowStarttime"
+		},
+		"trigger_tumbling_properties_pipeline_parameters_endTime": {
+			"value": "@trigger().outputs.windowEndtime"
+		},
+		"tumbling_window_trigger_properties_pipeline_parameters_startTime": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"tumbling_window_trigger_properties_pipeline_parameters_endTime": {
+			"value": "@trigger().outputs.windowEndTime"
+		}
+	}
+}
