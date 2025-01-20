@@ -5,6 +5,8 @@
 			{
 				"name": "POST data",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -30,7 +32,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2025-01-19T17:37:40Z"
+		"lastPublishTime": "2025-01-19T17:50:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

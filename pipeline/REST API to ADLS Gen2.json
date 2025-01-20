@@ -5,6 +5,8 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -103,7 +105,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2025-01-19T14:24:28Z"
+		"lastPublishTime": "2025-01-19T17:50:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

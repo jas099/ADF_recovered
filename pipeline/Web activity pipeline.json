@@ -5,6 +5,8 @@
 			{
 				"name": "GET data",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.10:00:00",
@@ -22,6 +24,8 @@
 			{
 				"name": "PUT data",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "GET data",
@@ -52,7 +56,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2025-01-19T17:22:40Z"
+		"lastPublishTime": "2025-01-19T17:50:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
