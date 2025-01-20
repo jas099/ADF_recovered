@@ -347,7 +347,7 @@
 					}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-01-19T17:08:50Z"
+				"lastPublishTime": "2025-01-20T08:52:50Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText_source')]",
@@ -363,6 +363,8 @@
 					{
 						"name": "Copy data1",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -434,7 +436,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-01-19T16:12:26Z"
+				"lastPublishTime": "2025-01-19T17:50:33Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText_source_incremental')]",
@@ -870,6 +872,50 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/POST web activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "POST data",
+						"type": "WebActivity",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {},
+							"url": "https://api.restful-api.dev/objects",
+							"body": {
+								"name": "Apple MacBook Pro 16",
+								"data": {
+									"year": 2019,
+									"price": 1849.99,
+									"CPU model": "Intel Core i9",
+									"Hard disk size": "1 TB"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-01-19T17:50:33Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/REST API to ADLS Gen2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -878,6 +924,8 @@
 					{
 						"name": "Copy data1",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -981,7 +1029,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-01-19T14:24:28Z"
+				"lastPublishTime": "2025-01-19T17:50:33Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/RestResource_ds')]",
@@ -1243,6 +1291,8 @@
 					{
 						"name": "GET data",
 						"type": "WebActivity",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.10:00:00",
@@ -1261,6 +1311,8 @@
 					{
 						"name": "PUT data",
 						"type": "WebActivity",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "GET data",
@@ -1294,19 +1346,19 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-01-19T17:22:40Z"
+				"lastPublishTime": "2025-01-19T17:50:33Z"
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/POST web activity')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline_dynamic_filename')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "POST data",
-						"type": "WebActivity",
+						"name": "Copy data1",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -1317,28 +1369,58 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"method": "POST",
-							"headers": {},
-							"url": "https://api.restful-api.dev/objects",
-							"body": {
-								"name": "Apple MacBook Pro 16",
-								"data": {
-									"year": 2019,
-									"price": 1849.99,
-									"CPU model": "Intel Core i9",
-									"Hard disk size": "1 TB"
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
 								}
 							}
-						}
+						},
+						"inputs": [
+							{
+								"referenceName": "sqlscd2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DelimitedText_dynamic_filename",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-01-19T17:37:40Z"
+				"lastPublishTime": "2025-01-20T06:41:15Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sqlscd2')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText_dynamic_filename')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/scd1')]",
@@ -1539,6 +1621,37 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText_dynamic_filename')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat('EmployeesTillDate_Stating',adddays(startOfMonth(utcNow()),-1,'ddMMMyyyy'),'_Ending',formatDateTime(utcNow(),'ddMMMyyyy'),'.csv')",
+							"type": "Expression"
+						},
+						"fileSystem": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage2')]"
 			]
 		},
 		{
